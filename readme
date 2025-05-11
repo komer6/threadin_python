@@ -1,0 +1,96 @@
+APP.PY:
+
+Basic Threading Program in Python
+
+This program demonstrates how to run two functions simultaneously using threads.
+
+1. We define two functions:
+   - print_numbers: prints numbers 0 to 4, one every second.
+   - print_letters: prints letters A to E, one every 1.5 seconds.
+
+2. We create two threads using threading.Thread(), assigning each function to a thread.
+
+3. We start both threads with .start().
+
+4. We use .join() to make sure the main program waits until both threads are done.
+
+Purpose:
+- Threads allow parts of your code to run at the same time (concurrently).
+- This is useful for tasks like downloading multiple files or handling multiple users in a server.
+
+
+ARGUMENTS.PY:
+
+Passing Arguments to Threads
+
+In this example:
+- We have a function greet(name, delay) that prints a greeting message multiple times with a delay.
+- We create a thread using threading.Thread.
+- We pass arguments to the function using the args=() parameter.
+
+Important Points:
+- args must be a tuple.
+- Even a single argument needs a comma to make it a tuple: args=("Omer",) not args=("Omer").
+
+How it works here:
+- "Omer" is passed as the 'name'.
+- 1.5 is passed as the 'delay' in seconds.
+- The thread prints "Hello Omer" three times with 1.5 seconds between messages.
+
+Meanwhile:
+- The main program continues running without waiting for the thread (unless you call .join()).
+
+Summary:
+- Use args=() when you want to pass parameters to the function your thread will run.
+
+
+
+
+DAEMON.PY:
+
+Daemon Thread Explanation
+
+In this example, we create two tasks:
+- background_task: an infinite loop that keeps printing every 2 seconds.
+- main_task: prints 5 times, once every second.
+
+The background_task is set as a daemon thread:
+    daemon_thread.daemon = True
+
+This means:
+- The background_task will run while the main program is running.
+- When the main_task finishes and the main program exits,
+  the daemon thread will be killed automatically.
+- Daemon threads are used for background jobs that should not block program exit,
+  like monitoring, logging, or cleanups.
+
+If we didn't set daemon = True:
+- The Python program would wait forever for the background_task to finish (which it never does).
+
+Important:
+- Always use daemon threads carefully if you have important work to save, because they can be killed abruptly.
+
+
+
+racec onditions and lock.py
+
+
+Race Conditions and Locking
+
+Race Condition:
+- Happens when two or more threads try to access and modify shared data at the same time.
+- It causes unexpected behavior, bugs, and wrong results.
+
+Example:
+- Two threads increment a shared 'counter' 100,000 times each.
+- Without control, both threads can "step over" each other and corrupt the final value.
+- The expected result is 200,000 but usually it will be wrong.
+
+Solution: Lock
+- A Lock allows only one thread at a time to access a critical section of code.
+- We use `with lock:` to safely wrap code that changes shared data.
+- This guarantees correct and predictable results even with many threads.
+
+Summary:
+- If multiple threads modify shared data → use a Lock.
+- Always lock the smallest necessary part of the code to avoid slowing down the program.
