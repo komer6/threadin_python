@@ -20,30 +20,32 @@ Purpose:
 
 
 ARGUMENTS.PY:
-
-Passing Arguments to Threads
-
 In this example:
-- We have a function greet(name, delay) that prints a greeting message multiple times with a delay.
-- We create a thread using threading.Thread.
-- We pass arguments to the function using the args=() parameter.
+
+We have a function greet(name, delay) that prints a greeting message multiple times with a delay.
+We create a thread using threading.Thread.
+We pass arguments to the function using either the args=() parameter or the kwargs={} parameter.
 
 Important Points:
-- args must be a tuple.
-- Even a single argument needs a comma to make it a tuple: args=("Omer",) not args=("Omer").
+args must be a tuple.
+Even a single argument needs a comma to make it a tuple: args=("Omer",) not args=("Omer").
+kwargs must be a dictionary, where the keys are the parameter names and the values are the arguments.
+How it works with args:
 
-How it works here:
-- "Omer" is passed as the 'name'.
-- 1.5 is passed as the 'delay' in seconds.
-- The thread prints "Hello Omer" three times with 1.5 seconds between messages.
+"Omer" is passed as the 'name'.
+1.5 is passed as the 'delay' in seconds.
+The thread prints "Hello Omer" three times with 1.5 seconds between messages.
+How it works with kwargs:
+"Alex" is passed as the 'name'.
+1 is passed as the 'delay' in seconds.
+The thread prints "Hello Alex" three times with 1 second between messages.
 
 Meanwhile:
-- The main program continues running without waiting for the thread (unless you call .join()).
+The main program continues running without waiting for the thread (unless you call .join()).
 
 Summary:
-- Use args=() when you want to pass parameters to the function your thread will run.
-
-
+Use args=() when you want to pass ordered arguments to the function your thread will run.
+Use kwargs={} when you want to pass named arguments to the function your thread will run.
 
 
 DAEMON.PY:
